@@ -42,7 +42,13 @@ class Product(models.Model):
         null=True,
         related_name="products",
     )
-    purchase_price = models.IntegerField()
+    purchase_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name="Цена закупки",
+        help_text="Введите цену закупки товара в рублях",
+    )
     created_at = models.DateField(
         auto_now_add=True,
         blank=True,

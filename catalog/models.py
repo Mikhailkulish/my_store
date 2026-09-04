@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Category(models.Model):
-    title = models.CharField(
+    name = models.CharField(
         max_length=100,
         verbose_name="Наименование категории",
         help_text="Введите наименование категории",
@@ -15,7 +15,7 @@ class Category(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         verbose_name = "Категория"
@@ -23,7 +23,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(
+    name = models.CharField(
         max_length=100, verbose_name="Товар", help_text="Введите наименование товара"
     )
     description = models.TextField()
@@ -42,7 +42,7 @@ class Product(models.Model):
         null=True,
         related_name="products",
     )
-    purchase_price = models.DecimalField(
+    price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
@@ -65,9 +65,9 @@ class Product(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
-        ordering = ["category", "title"]
+        ordering = ["category", "name"]

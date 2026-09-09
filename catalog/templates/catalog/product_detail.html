@@ -1,22 +1,17 @@
 {% extends 'catalog/base.html' %}
 
+{% load my_tags %}
+
 {% block title %}Детальная информация о товаре{% endblock %}
 
 {% block content %}
 <h1 class="mt-5 mb-4">Детальная информация о товаре</h1>
-<p>Наименование товара: {{ product_name }}</p>
-<p>Описание товара: {{ product_description }}</p>
+<p>Наименование товара: {{ product.name }}</p>
+<p>Описание товара: {{ product.description }}</p>
 <p>Фото товара:</p>
-{% if product_photo %}
-    <img src="{{ product_photo }}"
-         alt="{{ product_name }}"
-         class="img-fluid"
-         style="max-height: 400px;">
-{% else %}
-    <p class="text-muted">Фото отсутствует</p>
-{% endif %}
-<p>Категория товара: {{ product_category }}</p>
-<p>Цена товара: {{ product_price }}</p>
-<p>Дата создания товара: {{ product_created_at|date:"d M Y" }}</p>
-<p>Дата обновления данных товара: {{ product_updated_at|date:"d M Y" }}</p>
+    <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+<p>Категория товара: {{ product.category }}</p>
+<p>Цена товара: {{ product.price }}</p>
+<p>Дата создания товара: {{ product.created_at|date:"d M Y" }}</p>
+<p>Дата обновления данных товара: {{ product.updated_at|date:"d M Y" }}</p>
 {% endblock %}

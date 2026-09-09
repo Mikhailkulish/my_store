@@ -9,9 +9,10 @@
 <p>Наименование товара: {{ product.name }}</p>
 <p>Описание товара: {{ product.description }}</p>
 <p>Фото товара:</p>
-    <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="max-width: 300px;">
+    <img src="{{ product.photo | media_filter }}" alt="{{ product.name }}" style="max-width: 300px;">
 <p>Категория товара: {{ product.category }}</p>
 <p>Цена товара: {{ product.price }}</p>
-<p>Дата создания товара: {{ product.created_at|date:"d M Y" }}</p>
-<p>Дата обновления данных товара: {{ product.updated_at|date:"d M Y" }}</p>
+<p>Дата создания товара: {{ product.created_at | date:"d M Y" }}</p>
+<p>Дата обновления данных товара: {{ product.updated_at | date:"d M Y" }}</p>
+<a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:home' %}">Назад</a>
 {% endblock %}

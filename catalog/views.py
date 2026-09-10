@@ -1,13 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from catalog.models import Product
 
 
 def home(request):
-    latest_products = Product.objects.order_by('-created_at')[:5]
-    print(list(latest_products))
+    products = Product.objects.all()
+    context = {"products": products}
 
-    return render(request, 'catalog/home.html')
+    return render(request, 'catalog/home.html', context)
 
 
 def contacts(request):
@@ -18,3 +18,10 @@ def contacts(request):
 
         return HttpResponse(f"Спасибо, {name}! Ваше сообщение получено. Мы свяжемся с Вами по номеру {phone}")
     return render(request, 'catalog/contacts.html')
+
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    context = {'product': product}
+
+    return render(request, 'catalog/product_detail.html', context)

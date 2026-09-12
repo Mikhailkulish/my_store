@@ -15,8 +15,15 @@
                     <h4 class="card-title pricing-card-title">{{ product.price }} руб.</h4>
                     <p class="list-unstyled mt-3 mb-4 text-start m-3">{{ product.description|truncatechars:100 }}</p>
                     <div class="d-grid gap-2">
-                        <a class="btn btn-lg btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть</a>
-                        <a class="btn btn-lg btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+                        <a class="btn btn-lg btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">
+                            Посмотреть
+                        </a>
+                        <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">
+                            Редактировать
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">
+                            Удалить
+                        </a>
                     </div>
                 </div>
             </div>

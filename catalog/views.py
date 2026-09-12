@@ -1,14 +1,21 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.views.generic import ListView
+
+
 from catalog.models import Product
 
 
-def home(request):
-    products = Product.objects.all()
-    context = {"products": products}
+class ProductListView(ListView):
+    model = Product
 
-    return render(request, 'catalog/home.html', context)
 
+
+# def home(request):
+#     products = Product.objects.all()
+#     context = {"products": products}
+#
+#     return render(request, 'catalog/home.html', context)
+#
 
 def contacts(request):
     if request.method == 'POST':

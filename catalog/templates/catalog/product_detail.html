@@ -14,5 +14,5 @@
 <p>Цена товара: {{ object.price }}</p>
 <p>Дата создания товара: {{ object.created_at | date:"d M Y" }}</p>
 <p>Дата обновления данных товара: {{ object.updated_at | date:"d M Y" }}</p>
-<a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_list' %}">Назад</a>
+    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_list' %}">Назад</a>
 {% endblock %}

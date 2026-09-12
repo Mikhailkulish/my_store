@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from catalog.models import Product
 
@@ -12,12 +13,30 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-# def home(request):
-#     products = Product.objects.all()
-#     context = {"products": products}
-#
-#     return render(request, 'catalog/home.html', context)
-#
+class ProductCreateView(CreateView):
+    model = Product
+    fields = (
+        "name",
+        "description",
+        "photo",
+        "category",
+        "price"
+    )
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = (
+        "name",
+        "description",
+        "photo",
+        "category",
+        "price"
+    )
+    success_url = reverse_lazy('catalog:product_list')
+
+
 
 def contacts(request):
     if request.method == 'POST':
@@ -27,10 +46,3 @@ def contacts(request):
 
         return HttpResponse(f"Спасибо, {name}! Ваше сообщение получено. Мы свяжемся с Вами по номеру {phone}")
     return render(request, 'catalog/contacts.html')
-
-
-# def product_detail(request, pk):
-#     product = get_object_or_404(Product, pk=pk)
-#     context = {'product': product}
-#
-#     return render(request, 'catalog/product_detail.html', context)

@@ -25,7 +25,8 @@ class Post(models.Model):
     )
     views_count = models.PositiveIntegerField(
         default=0,
-        verbose_name="Просмотры",
+        verbose_name="Счетчик просмотров",
+        help_text="Укажите количество просмотров",
         editable=False,
     )
 

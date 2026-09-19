@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% load my_tags %}
+{% block title %}Блог My Store{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <p class="card-text text-center text-danger fw-bold mt-3">Вы действительно хотите удалить статью {{ object.title }}?</p>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {% if form.instance.preview_image %}
+                            <div class="mb-3 text-center">
+                                <label class="form-label">Текущее фото:</label><br>
+                                <img src="{{ form.instance.preview_image|media_filter }}"
+                                     alt="{{ form.instance.title }}"
+                                     style="max-height: 200px; object-fit: cover; border-radius: 8px;">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex gap-2 px-3 pb-3 justify-content-center">
+                        <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                        <a class="btn btn-outline-primary" href="{% url 'blog:post_list' %}" role="button">Отменить</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

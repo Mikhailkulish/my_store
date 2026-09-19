@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+{% load my_tags %}
+{% block title %}Блог My Store{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {% if form.instance.preview_image %}
+                            <div class="mb-3 text-center">
+                                <label class="form-label">Текущее превью:</label><br>
+                                <img src="{{ form.instance.preview_image|media_filter }}"
+                                     alt="{{ form.instance.title }}"
+                                     style="max-height: 200px; object-fit: cover; border-radius: 8px;">
+                            </div>
+                        {% endif %}
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        {% if object %}
+                        Сохранить
+                        {% else %}
+                        Добавить статью
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

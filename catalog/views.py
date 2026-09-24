@@ -1,27 +1,61 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+
 from catalog.models import Product
 
 
-def home(request):
-    products = Product.objects.all()
-    context = {"products": products}
-
-    return render(request, 'catalog/home.html', context)
+class ProductListView(ListView):
+    model = Product
 
 
-def contacts(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
-
-        return HttpResponse(f"Спасибо, {name}! Ваше сообщение получено. Мы свяжемся с Вами по номеру {phone}")
-    return render(request, 'catalog/contacts.html')
+class ProductDetailView(DetailView):
+    model = Product
 
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
+class ProductCreateView(CreateView):
+    model = Product
+    fields = (
+        "name",
+        "description",
+        "photo",
+        "category",
+        "price"
+    )
+    success_url = reverse_lazy('catalog:product_list')
 
-    return render(request, 'catalog/product_detail.html', context)
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = (
+        "name",
+        "description",
+        "photo",
+        "category",
+        "price"
+    )
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:product_list')
+
+# def contacts(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         phone = request.POST.get('phone')
+#         message = request.POST.get('message')
+#
+#         return HttpResponse(f"Спасибо, {name}! Ваше сообщение получено. Мы свяжемся с Вами по номеру {phone}")
+#     return render(request, 'catalog/contacts.html')
+
+class ContactsView(TemplateView):
+    template_name = 'catalog/contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Контакты'
+        context['phone'] = '+7 (999) 999-99-99'
+        context['email'] = 'info@mystore.ru'
+        context['address'] = 'г. Москва, Красная площадь, ГУМ'
+        return context

@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+
+{% load my_tags %}
+
+{% block title %}Содержание статьи{% endblock %}
+
+{% block content %}
+<h1 class="mt-5 mb-4">{{ object.title }}</h1>
+    <img src="{{ post.preview_image | media_filter }}" alt="{{ post.title }}" style="max-width: 300px;">
+<p>{{ object.description }}</p>
+<p>Дата создания статьи: {{ object.created_at | date:"d M Y" }}</p>
+<p>Дата редактирования статьи: {{ object.updated_at | date:"d M Y" }}</p>
+<p>Количество просмотров: {{ object.views_count | date:"d M Y" }}</p>
+    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blog:post_list' %}">Назад</a>
+{% endblock %}

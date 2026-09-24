@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% load my_tags %}
+{% block title %}Блог My Store{% endblock %}
+{% block content %}
+<div class="container">
+    <p>
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'blog:post_create' %}">Добавить новую статью</a>
+    </p>
+    <div class="row text-center">
+        {% for post in object_list %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card mb-4 box-shadow">
+                <img src="{{ post.preview_image|media_filter }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ post.title }}</h4>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title pricing-card-title">{{ post.views_count }} просмотров</h4>
+                    <p class="list-unstyled mt-3 mb-4 text-start m-3">{{ post.description|truncatechars:200 }}</p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-lg btn-outline-primary" href="{% url 'blog:post_detail' post.pk %}">
+                            Прочитать
+                        </a>
+                        <a class="btn btn-primary" href="{% url 'blog:post_update' post.pk %}">
+                            Редактировать
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'blog:post_delete' post.pk %}">
+                            Удалить
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

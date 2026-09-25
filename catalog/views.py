@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
@@ -14,25 +15,13 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = (
-        "name",
-        "description",
-        "photo",
-        "category",
-        "price"
-    )
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = (
-        "name",
-        "description",
-        "photo",
-        "category",
-        "price"
-    )
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
 
 
@@ -40,14 +29,6 @@ class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')
 
-# def contacts(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         phone = request.POST.get('phone')
-#         message = request.POST.get('message')
-#
-#         return HttpResponse(f"Спасибо, {name}! Ваше сообщение получено. Мы свяжемся с Вами по номеру {phone}")
-#     return render(request, 'catalog/contacts.html')
 
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'

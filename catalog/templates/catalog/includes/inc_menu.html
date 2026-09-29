@@ -1,5 +1,11 @@
 <nav class="ms-5">
-  <a class="p-2 btn btn-outline-primary" style="min-width: 130px;" href="/">Каталог</a>
-  <a class="p-2 btn btn-outline-primary" style="min-width: 130px;" href="/contacts/">Контакты</a>
-  <a class="p-2 btn btn-outline-primary" style="min-width: 130px;" href="/blog/">Блог</a>
+  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'catalog:product_list' %}">Каталог</a>
+  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'catalog:contacts' %}">Контакты</a>
+  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'blog:post_list' %}">Блог</a>
+  {% if user.is_authenticated %}
+  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'users:logout' %}">Выход</a>
+  {% else %}
+  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'users:login' %}">Вход</a>
+  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'users:register' %}">Регистрация</a>
+  {% endif %}
 </nav>

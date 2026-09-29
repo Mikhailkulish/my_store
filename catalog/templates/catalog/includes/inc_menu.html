@@ -3,7 +3,10 @@
   <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'catalog:contacts' %}">Контакты</a>
   <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'blog:post_list' %}">Блог</a>
   {% if user.is_authenticated %}
-  <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'users:logout' %}">Выход</a>
+  <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="p-2 btn btn-outline-primary" style="min-width: 120px;">Выход</button>
+  </form>
   {% else %}
   <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'users:login' %}">Вход</a>
   <a class="p-2 btn btn-outline-primary" style="min-width: 120px;" href="{% url 'users:register' %}">Регистрация</a>

@@ -110,18 +110,18 @@ files = [
 
 [[package]]
 name = "django"
-version = "4.2.2"
+version = "5.2.17"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "Django-4.2.2-py3-none-any.whl", hash = "sha256:672b3fa81e1f853bb58be1b51754108ab4ffa12a77c06db86aa8df9ed0c46fe5"},
-    {file = "Django-4.2.2.tar.gz", hash = "sha256:2a6b6fbff5b59dd07bef10bcb019bee2ea97a30b2a656d51346596724324badf"},
+    {file = "django-5.2.17-py3-none-any.whl", hash = "sha256:f04fb3b36ee119e1af4fa1d397d5fd6cf12700f49321e84d4f4c642c5b1973db"},
+    {file = "django-5.2.17.tar.gz", hash = "sha256:9d4d93be539a18ab80d058eb515900e10951e04c537c5a6b394fc49528d3251f"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.6.0,<4"
+asgiref = ">=3.8.1"
 sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
@@ -741,4 +741,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14"
-content-hash = "5dca592d37f896201ab674da20bcadb23a38c403a9ff4e58f2bcaa444447b5ef"
+content-hash = "bd11524be581638a73fa19491c37a3182f6a9a15410e038081dba65225d91c72"

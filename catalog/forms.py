@@ -49,6 +49,9 @@ class ProductForm(forms.ModelForm):
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
+        if not photo:
+            return photo
+
         max_size = 5 * 1024 * 1024
         if photo.size > max_size:
             raise ValidationError('Размер файла не должен превышать 5 МБ.')

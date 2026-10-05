@@ -64,6 +64,7 @@ class Product(models.Model):
         verbose_name="Дата изменения товара",
         help_text="Укажите дату изменения товара",
     )
+    is_published = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

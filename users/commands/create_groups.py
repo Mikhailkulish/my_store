@@ -5,7 +5,8 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
     def handle(self, *args, **options):
         groups = {
-            'moderator_of_products': ['add_product', 'change_product', 'delete_product', 'view_product'],
+            'admin': ['add_product', 'change_product', 'delete_product', 'view_product'],
+            'moderator_of_products': ['can_unpublish_product', 'can_delete_any_product'],
             'viewers': ['view_product'],
         }
 

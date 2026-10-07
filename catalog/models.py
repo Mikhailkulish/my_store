@@ -82,6 +82,7 @@ class Product(models.Model):
         ordering = ["category", "name"]
         permissions = [
             ("can_unpublish_product", "Can unpublish product"),
+            ("can_publish_product", "Can publish product"),
             ("can_delete_any_product", "Can delete any product"),
         ]
 

@@ -21,12 +21,14 @@
                         <a class="btn btn-lg btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">
                             Посмотреть
                         </a>
+                        {% if perms.catalog.can_delete_any_product or product.owner == user %}
                         <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">
                             Редактировать
                         </a>
                         <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">
                             Удалить
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

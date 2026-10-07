@@ -32,6 +32,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         "is_published"
     )
     success_url = reverse_lazy('blog:post_list')
+    permission_required = 'blog.can_manage_blog'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -46,6 +48,8 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         "preview_image",
         "is_published"
     )
+    permission_required = 'blog.can_manage_blog'
+    raise_exception = True
 
     def get_success_url(self):
         return reverse('blog:post_detail', kwargs={'pk': self.object.pk})
@@ -54,5 +58,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blog:post_list')
+    permission_required = 'blog.can_manage_blog'
+    raise_exception = True
 
 

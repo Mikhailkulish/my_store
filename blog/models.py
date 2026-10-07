@@ -37,3 +37,6 @@ class Post(models.Model):
         verbose_name = "Статья"
         verbose_name_plural = "Статьи"
         ordering = ["title"]
+        permissions = [
+            ('can_manage_blog', 'Can manage blog'),
+        ]

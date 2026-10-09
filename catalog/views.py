@@ -1,16 +1,49 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.cache import cache
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from catalog.forms import ProductForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import get_products_by_category
+from config.settings import CACHE_ENABLED
+
+
+class CategoryProductsView(ListView):
+    model = Product
+    template_name = 'catalog/category_products.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, pk=self.kwargs['pk'])
+        return get_products_by_category(self.category.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        context['title'] = f'Товары в категории «{self.category.name}»'
+        return context
 
 
 class ProductListView(ListView):
     model = Product
+    template_name = 'catalog/product_list.html'
+
+    def get_queryset(self):
+        if not CACHE_ENABLED:
+            return Product.objects.all().select_related('category')
+
+        key = 'product_list'
+        products = cache.get(key)
+        if products is None:
+            products = list(
+                Product.objects.all().select_related('category')
+            )
+            cache.set(key, products, 60)  # 60 секунд
+        return products
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):

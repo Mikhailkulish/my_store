@@ -47,6 +47,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'catalog.context_processors.categories',
             ],
         },
     },
@@ -121,11 +122,14 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-CACH_ENABLED = True
-if CACH_ENABLED:
+CACHE_ENABLED = True
+if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://localhost:6379/1"
+            "LOCATION": "redis://localhost:6379/1",
+            "OPTIONS": {
+                "protocol": 2,  # ← заставляем клиент использовать RESP2, без HELLO
+            }
         }
     }
